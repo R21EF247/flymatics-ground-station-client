@@ -1,0 +1,27 @@
+.cameraContainer {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.videoContainer {
+    background-color: #eee;
+    height: 50vh; /* Set a fixed height or make it responsive as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Use 100% to fill the container width */
+}
+
+.videoElement {
+    width: 100%; /* Make video fill the container */
+    height: 100%; /* Make video fill the container */
+    object-fit: cover; /* This will ensure that aspect ratio is maintained */
+}
+.button{
+    background-color: rgb(255, 65, 97);
+    height :6vh;
+    font-weight: 800;
+    border-radius: 16px;
+}

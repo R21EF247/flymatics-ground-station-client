@@ -1,0 +1,31 @@
+.shadow {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3); /* Adjust values as needed */
+    transition: 0.3s; /* Optional: Adds a transition effect */
+}
+.sensorItem {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+}
+
+.sensorStatus {
+    align-self: flex-end;
+    padding-top: 5px;
+}
+
+.distance {
+    align-self: flex-start; 
+    padding-top: 5px; 
+}
+.activeStatus {
+    color: green;
+}
+
+.inactiveStatus {
+    color: red;
+}
+fieldset{
+    border: 1px solid #ccc;
+}

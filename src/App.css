@@ -1,0 +1,20 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.camera-feed {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+video {
+  width: inherit; /* Adjust as needed */
+  height: inherit; /* Maintain aspect ratio */
+}

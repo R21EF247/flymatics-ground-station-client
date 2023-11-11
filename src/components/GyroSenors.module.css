@@ -1,0 +1,18 @@
+.shadow {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3); /* Adjust values as needed */
+    transition: 0.3s; /* Optional: Adds a transition effect */
+}
+.sensorData {
+    display: flex;
+    justify-content: space-around; /* This will distribute space evenly around the items */
+    align-items: center; /* This will vertically align items in the center */
+}
+
+.sensorData span:not(:last-child) {
+    border-right: 1px solid #ccc; /* This adds a vertical line between spans */
+    padding-right: 20px; /* This adds some spacing to the right of each span */
+}
+
+.sensorData span {
+    padding-left: 20px; /* This adds some spacing to the left of each span */
+}

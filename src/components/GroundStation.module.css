@@ -1,0 +1,59 @@
+/* .groundStation {
+    font-family: "Arial", sans-serif;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 20px;
+}
+
+
+
+.leftColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Add any additional styles for individual components if needed */
+/* .irritation{
+    display: flex;
+    width: max-content;
+}
+.header{
+    display: flex;
+} */
+.groundStation {
+    font-family: "Arial", sans-serif;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 20px;
+    width: 90%;
+}
+.header {
+    display: flex;
+    justify-content: space-between; /* Aligns title and status header */
+    align-items: center; /* Centers items vertically */
+    grid-column: 1 / -1; /* Makes header span all columns */
+}
+.title {
+    /* Assuming you have a title class */
+    font-size: 2em; /* Example font size, adjust as needed */
+}
+
+.leftColumn {
+    width: 50vw;
+}
+.rightColumn {
+    
+    display: flex;
+    flex-direction: column; 
+    gap: 40px; 
+    
+}

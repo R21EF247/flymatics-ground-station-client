@@ -1,0 +1,16 @@
+.locationContainer {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.mapWrapper {
+    background-color: #eee;
+    height: 50vh; /* Same fixed height as .videoContainer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Same width as .videoContainer */
+}
+
