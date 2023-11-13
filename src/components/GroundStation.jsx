@@ -7,6 +7,8 @@ import { BarometricSensor } from './BarometricSensor';
 import { SensorList } from './SensorList';
 import styles from './GroundStation.module.css';
 import GyroSensors from './GyroSensors';
+import ThreeJSViewport from './ThreeJSViewport';
+import ThreeDView from './ThreeDView';
 
 const GroundStation = () => {
     return (
@@ -26,10 +28,11 @@ const GroundStation = () => {
 
             <div className={styles.rightColumn}>
                 {/* Uncomment and import SensorList when ready */}
-                <SensorList  />
-                <GyroSensors/>
+                <SensorList />
+                <GyroSensors />
                 <BarometricSensor />
-                
+                {/* <ThreeJSViewport/> */}
+                <ThreeDView />
             </div>
 
         </div>
