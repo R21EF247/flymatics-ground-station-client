@@ -5,8 +5,8 @@ const BarometricSensor = ({  elevation, isElevationActive }) => {
     const pressure = receivedNumbers.length > 0 ? receivedNumbers[receivedNumbers.length - 1] : 'N/A';
 
     const boxShadowStyle = {
-        boxShadow: '0 4px 8px 0 rgba(0,0,0,0.3)', // Adjust the values to get the desired effect
-        transition: '0.3s', // This adds a smooth transition effect on hover
+        boxShadow: '0 4px 8px 0 rgba(0,0,0,0.3)', 
+        transition: '0.3s', 
     };
 
     return (
