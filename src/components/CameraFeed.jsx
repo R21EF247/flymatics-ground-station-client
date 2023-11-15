@@ -1,45 +1,46 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './CameraFeed.module.css'; // Assuming you have a CSS module for CameraFeed
+import io from 'socket.io-client';
+import styles from './CameraFeed.module.css';
 
 const CameraFeed = () => {
     const [feed, setFeed] = useState(false);
     const videoRef = useRef(null);
+    const socket = useRef(null);
 
     useEffect(() => {
-        let videoStream;
-
-        const getVideo = async () => {
-            try {
-                videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
-                if (videoRef.current) {
-                    videoRef.current.srcObject = videoStream;
-                }
-            } catch (err) {
-                console.error("Error accessing the camera: ", err);
-            }
-        };
-
         if (feed) {
-            getVideo();
+            // Connect to the cloud server
+            socket.current = io('https://flymatics-cloud-server.onrender.com/');
+            socket.current.on('connect', () => {
+                console.log('Connected to cloud server');
+                socket.current.emit('start-video-stream');
+            });
+
+            socket.current.on('video-stream', (videoData) => {
+                // Process and render videoData
+                if (videoRef.current) {
+                    const blob = new Blob([videoData], { type: 'video/mp4' }); // Assuming videoData is in mp4 format
+                    videoRef.current.src = URL.createObjectURL(blob);
+                }
+            });
         } else {
-            // Stop the video stream and clear the video source when feed is false
-            if (videoRef.current && videoRef.current.srcObject) {
-                const tracks = videoRef.current.srcObject.getTracks();
-                tracks.forEach(track => track.stop());
-                videoRef.current.srcObject = null;
+            // Disconnect the socket and stop the video
+            if (socket.current) {
+                socket.current.disconnect();
+            }
+            if (videoRef.current) {
+                videoRef.current.src = '';
             }
         }
 
-        // Cleanup function to stop the video stream when the component unmounts or feed changes
         return () => {
-            if (videoStream) {
-                const tracks = videoStream.getTracks();
-                tracks.forEach(track => track.stop());
+            // Cleanup
+            if (socket.current) {
+                socket.current.disconnect();
             }
         };
-    }, [feed]); // Dependency array now includes feed
+    }, [feed]);
 
-    // Toggles the feed state
     const handleRender = () => {
         setFeed(!feed);
     };
