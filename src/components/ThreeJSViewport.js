@@ -1,7 +1,7 @@
-
+// eslint-disable-next-line`
 import React, { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, useProgress } from "@react-three/drei";
+import { OrbitControls, Environment } from "@react-three/drei";
 
 export default function ThreeJSViewport() {
     const [loading, setLoading] = useState(true);
@@ -38,11 +38,6 @@ export default function ThreeJSViewport() {
                         position: [-1, 2, 2.5],
                     }}
                 >
-                    <ambientLight />
-                    <mesh>
-                        <torusGeometry args={[1, 0.4, 16, 100]} />
-                        <meshPhysicalMaterial metalness={1} roughness={0.1} />
-                    </mesh>
                     <OrbitControls />
                     <Environment
                         files={"/mpu6050_teapot.obj"}

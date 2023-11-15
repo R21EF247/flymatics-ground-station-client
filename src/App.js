@@ -61,13 +61,14 @@ const DISCONNECTED = 'DISCONNECTED';
 let socket;
 
 function App() {
-    const [status,setStatus]=useState(false);
+    const [status, setStatus] = useState(false);
     const [connectionStatus, setConnectionStatus] = useState(DISCONNECTED);
     const [receivedNumbers, setReceivedNumbers] = useState([]);
-
+    const [nanoData, setNanoData] = useState([]);
+    const [picoData, setPicoData] = useState([]);
     useEffect(() => {
         // Initialize the socket connection inside useEffect to ensure it's client-side only
-        socket = io('http://localhost:1234', {
+        socket = io('https://flymatics-cloud-server.onrender.com', {
             transports: ['websocket'], // force WebSocket
             upgrade: false, // prevent attempts to other transport mechanisms
         });
@@ -86,6 +87,14 @@ function App() {
             setReceivedNumbers([...receivedNumbers, number]);
             console.log('Number received:', number);
         });
+        socket.on('forwarded-nano-data', (data) => {
+            setNanoData([...nanoData, data]);
+            console.log('Nano data received:', data);
+        });
+        socket.on('forwarded-pico-data', (data) => {
+            setPicoData([...picoData, data]);
+            console.log('Pico data received:', data);
+        });
 
         socket.on('disconnect', () => {
             setConnectionStatus(DISCONNECTED);
@@ -99,15 +108,17 @@ function App() {
                 socket.off('connect');
                 socket.off('forwarded-number');
                 socket.off('disconnect');
+                socket.off('forwarded-nano-data');
+                socket.off('forwarded-pico-data');
                 socket.disconnect();
             }
         };
         // Empty dependency array ensures this effect runs only once on mount and not on every re-render
-    }, []);
+    }, [receivedNumbers, nanoData, picoData]);
 
     return (
-        <NumbersContext.Provider value={{ receivedNumbers, setReceivedNumbers }}>
-            <GroundStation status={status}/>
+        <NumbersContext.Provider value={{ receivedNumbers, nanoData, picoData }}>
+            <GroundStation status={status} picoData={picoData}/>
         </NumbersContext.Provider>
     );
 }
