@@ -61,12 +61,13 @@ const DISCONNECTED = 'DISCONNECTED';
 let socket;
 
 function App() {
+    const [status,setStatus]=useState(false);
     const [connectionStatus, setConnectionStatus] = useState(DISCONNECTED);
     const [receivedNumbers, setReceivedNumbers] = useState([]);
 
     useEffect(() => {
         // Initialize the socket connection inside useEffect to ensure it's client-side only
-        socket = io('https://flymatics-cloud-server.onrender.com', {
+        socket = io('http://localhost:1234', {
             transports: ['websocket'], // force WebSocket
             upgrade: false, // prevent attempts to other transport mechanisms
         });
@@ -77,6 +78,7 @@ function App() {
             console.log('Control station connected to cloud server with socket ID:', socket.id);
             // Emit an event right after connection to identify this client as the control station
             socket.emit('control-station-connected');
+            setStatus(true)
         });
 
         // Set up listeners for socket events
@@ -88,6 +90,7 @@ function App() {
         socket.on('disconnect', () => {
             setConnectionStatus(DISCONNECTED);
             console.log('Disconnected from socket server');
+            setStatus(false)
         });
 
         // Define the cleanup function
@@ -104,7 +107,7 @@ function App() {
 
     return (
         <NumbersContext.Provider value={{ receivedNumbers, setReceivedNumbers }}>
-            <GroundStation />
+            <GroundStation status={status}/>
         </NumbersContext.Provider>
     );
 }

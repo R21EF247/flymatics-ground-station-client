@@ -10,12 +10,12 @@ import GyroSensors from './GyroSensors';
 import ThreeJSViewport from './ThreeJSViewport';
 import ThreeDView from './ThreeDView';
 
-const GroundStation = () => {
+const GroundStation = ({status}) => {
     return (
         <div className={styles.groundStation}>
             <div className={styles.header}>
                 <h1 className={styles.title}>Flymatics-Ground Station</h1>
-                <StatusHeader className={styles.statusHeader} />
+                <StatusHeader status={status} className={styles.statusHeader} />
             </div>
             <span >
                 <div className={styles.leftColumn}>
