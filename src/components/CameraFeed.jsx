@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import styles from './CameraFeed.module.css';
@@ -13,13 +14,19 @@ const CameraFeed = () => {
             socket.current = io('https://flymatics-cloud-server.onrender.com/');
             socket.current.on('connect', () => {
                 console.log('Connected to cloud server');
-                socket.current.emit('start-video-stream');
+                socket.current.emit('control-station-connected');
             });
 
-            socket.current.on('video-stream', (videoData) => {
-                // Process and render videoData
+            socket.current.on('video-stream', (base64Data) => {
+                // Convert base64 to a blob and set as video source
                 if (videoRef.current) {
-                    const blob = new Blob([videoData], { type: 'video/mp4' }); // Assuming videoData is in mp4 format
+                    const byteCharacters = atob(base64Data);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    const blob = new Blob([byteArray], { type: 'video/mp4' });
                     videoRef.current.src = URL.createObjectURL(blob);
                 }
             });
@@ -54,7 +61,7 @@ const CameraFeed = () => {
                 )}
             </div>
             <button className={styles.button} onClick={handleRender}>
-                {feed ? 'Stop video' : 'Render video Now'}
+                {feed ? 'Stop video' : 'Start video'}
             </button>
         </div>
     );
